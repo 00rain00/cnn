@@ -8,7 +8,7 @@ figure;
 perm = randperm(10000,20);
 for i = 1:20
     subplot(4,5,i);
-    imshow(imds.Files{perm(i)});
+   % imshow(imds.Files{perm(i)});
 end
 
 labelCount = countEachLabel(imds);
@@ -39,3 +39,17 @@ layers = [
     fullyConnectedLayer(10)
     softmaxLayer
     classificationLayer];
+
+options = trainingOptions('sgdm', ...
+    'MaxEpochs',4, ...
+    'ValidationData',imdsValidation, ...
+    'ValidationFrequency',30, ...
+    'Verbose',false, ...
+    'Plots','training-progress');
+
+net = trainNetwork(imdsTrain,layers,options);
+
+YPred = classify(net,imdsValidation);
+YValidation = imdsValidation.Labels;
+
+accuracy = sum(YPred == YValidation)/numel(YValidation);
