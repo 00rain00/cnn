@@ -4,7 +4,7 @@ imds = imageDatastore(digitDatasetPath, ...
     'IncludeSubfolders',true,'LabelSource','foldernames');
 
 %show image
-figure;
+%figure;
 perm = randperm(10000,20);
 for i = 1:20
     subplot(4,5,i);
@@ -37,8 +37,15 @@ layers = [
     reluLayer
     
     fullyConnectedLayer(10)
+    %l2normorlizlayer
+    %scalinglayer
     softmaxLayer
     classificationLayer];
+
+    %l2 normorlization layer
+    
+
+
 
 options = trainingOptions('sgdm', ...
     'MaxEpochs',4, ...
